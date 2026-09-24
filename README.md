@@ -84,6 +84,8 @@ Resolved / Rejected
    ▼
 Citizen Tracks Updated Status
 
+---
+
 🛠️ Technologies Used
 
 | Technology  | Purpose                   |
@@ -97,5 +99,46 @@ Citizen Tracks Updated Status
 | JavaScript  | Client-side functionality |
 | Chart.js    | Dashboard Charts          |
 | Pillow      | Image Upload Handling     |
+
+---
+
+📂 Project Structure
+
+smart_city_complaint/
+│
+├── complaints/
+│   ├── migrations/
+│   ├── templates/
+│   ├── admin.py
+│   ├── models.py
+│   ├── urls.py
+│   └── views.py
+│
+├── config/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── templates/
+│   ├── base.html
+│   ├── home.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── my_complaints.html
+│   ├── complaint_detail.html
+│   └── admin_dashboard.html
+│
+├── static/
+│   └── css/
+│       └── style.css
+│
+├── media/
+│
+├── manage.py
+├── requirements.txt
+├── .gitignore
+└── README.md
 
 ```

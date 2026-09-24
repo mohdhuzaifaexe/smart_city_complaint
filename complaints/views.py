@@ -118,3 +118,20 @@ def submit_complaint(request):
             'categories': categories
         }
     )
+
+def my_complaints(request):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    complaints = Complaint.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'my_complaints.html',
+        {
+            'complaints': complaints
+        }
+    )

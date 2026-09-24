@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Complaints - Smart City
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1>My Complaints</h1>
+
+        <p class="text-muted">
+            Track the status of your submitted complaints.
+        </p>
+
+    </div>
+
+
+    {% if complaints %}
+
+        <div class="row g-4">
+
+            {% for complaint in complaints %}
+
+                <div class="col-md-6">
+
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between
+                                        align-items-start">
+
+                                <h4>
+                                    {{ complaint.title }}
+                                </h4>
+
+                                {% if complaint.status == 'Pending' %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+
+                                {% elif complaint.status == 'In Progress' %}
+
+                                    <span class="badge bg-primary">
+                                        In Progress
+                                    </span>
+
+                                {% elif complaint.status == 'Resolved' %}
+
+                                    <span class="badge bg-success">
+                                        Resolved
+                                    </span>
+
+                                {% elif complaint.status == 'Rejected' %}
+
+                                    <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <hr>
+
+
+                            <p>
+                                <strong>Category:</strong>
+                                {{ complaint.category.name }}
+                            </p>
+
+
+                            <p>
+                                <strong>Location:</strong>
+                                {{ complaint.address }}
+                            </p>
+
+
+                            <p>
+                                <strong>Description:</strong>
+                                {{ complaint.description }}
+                            </p>
+
+
+                            <p class="text-muted mb-0">
+
+                                Submitted:
+                                {{ complaint.created_at|date:"d M Y, h:i A" }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="text-center py-5">
+
+            <h3>No Complaints Yet</h3>
+
+            <p class="text-muted">
+                You haven't submitted any complaints.
+            </p>
+
+            <a
+                href="{% url 'submit_complaint' %}"
+                class="btn btn-primary"
+            >
+                Submit Your First Complaint
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

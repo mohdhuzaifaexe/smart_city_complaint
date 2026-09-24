@@ -14,4 +14,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
 
     path('submit-complaint/',views.submit_complaint,name='submit_complaint'),
+
+    path('my-complaints/',views.my_complaints,name='my_complaints'),
 ]

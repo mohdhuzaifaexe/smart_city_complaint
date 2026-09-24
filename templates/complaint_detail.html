@@ -4,107 +4,232 @@
 Complaint Details - Smart City
 {% endblock %}
 
+
 {% block content %}
 
 <div class="container py-5">
 
+    <!-- Page Header -->
+
+    <div class="text-center mb-5">
+
+        <h1>Complaint Details</h1>
+
+        <p class="text-muted">
+            View complete information about your complaint.
+        </p>
+
+    </div>
+
+
+    <!-- Complaint Card -->
+
     <div class="row justify-content-center">
 
-        <div class="col-lg-8">
+        <div class="col-lg-9">
 
-            <div class="card shadow">
+            <div class="card shadow-sm">
 
                 <div class="card-body p-4">
 
+
+                    <!-- Header -->
+
                     <div class="d-flex justify-content-between
-                                align-items-start">
+                                align-items-start mb-3">
 
                         <div>
+
                             <p class="text-muted mb-1">
                                 Complaint #{{ complaint.id }}
                             </p>
 
-                            <h2>
+                            <h2 class="mb-0">
                                 {{ complaint.title }}
                             </h2>
+
                         </div>
 
-                        {% if complaint.status == 'Pending' %}
 
-                            <span class="badge bg-warning text-dark fs-6">
-                                Pending
-                            </span>
+                        <!-- Status -->
 
-                        {% elif complaint.status == 'In Progress' %}
+                        <div>
 
-                            <span class="badge bg-primary fs-6">
-                                In Progress
-                            </span>
+                            {% if complaint.status == 'Pending' %}
 
-                        {% elif complaint.status == 'Resolved' %}
+                                <span class="badge bg-warning text-dark fs-6">
+                                    Pending
+                                </span>
 
-                            <span class="badge bg-success fs-6">
-                                Resolved
-                            </span>
+                            {% elif complaint.status == 'In Progress' %}
 
-                        {% elif complaint.status == 'Rejected' %}
+                                <span class="badge bg-primary fs-6">
+                                    In Progress
+                                </span>
 
-                            <span class="badge bg-danger fs-6">
-                                Rejected
-                            </span>
+                            {% elif complaint.status == 'Resolved' %}
 
-                        {% endif %}
+                                <span class="badge bg-success fs-6">
+                                    Resolved
+                                </span>
+
+                            {% elif complaint.status == 'Rejected' %}
+
+                                <span class="badge bg-danger fs-6">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary fs-6">
+                                    {{ complaint.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
 
                     </div>
+
 
                     <hr>
 
-                    <div class="mb-3">
-                        <strong>Category:</strong>
-                        {{ complaint.category.name }}
+
+                    <!-- Complaint Information -->
+
+                    <div class="row g-4">
+
+
+                        <!-- Category -->
+
+                        <div class="col-md-6">
+
+                            <div class="border rounded p-3 h-100">
+
+                                <small class="text-muted">
+                                    Category
+                                </small>
+
+                                <h5 class="mt-1 mb-0">
+
+                                    {{ complaint.category.name }}
+
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Department -->
+
+                        <div class="col-md-6">
+
+                            <div class="border rounded p-3 h-100">
+
+                                <small class="text-muted">
+                                    Department
+                                </small>
+
+                                <h5 class="mt-1 mb-0">
+
+                                    {% if complaint.department %}
+
+                                        {{ complaint.department.name }}
+
+                                    {% else %}
+
+                                        <span class="text-muted">
+                                            Not assigned yet
+                                        </span>
+
+                                    {% endif %}
+
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Location -->
+
+                        <div class="col-12">
+
+                            <div class="border rounded p-3">
+
+                                <small class="text-muted">
+                                    Location
+                                </small>
+
+                                <p class="mt-2 mb-0">
+
+                                    {{ complaint.address }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Description -->
+
+                        <div class="col-12">
+
+                            <div class="border rounded p-3">
+
+                                <small class="text-muted">
+                                    Description
+                                </small>
+
+                                <p class="mt-2 mb-0">
+
+                                    {{ complaint.description }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
                     </div>
 
-                    <div class="mb-3">
-                        <strong>Department:</strong>
 
-                        {% if complaint.department %}
-                            {{ complaint.department.name }}
-                        {% else %}
-                            <span class="text-muted">
-                                Not assigned yet
-                            </span>
-                        {% endif %}
-                    </div>
-
-                    <div class="mb-3">
-                        <strong>Location:</strong>
-                        <p class="mt-1">
-                            {{ complaint.address }}
-                        </p>
-                    </div>
-
-                    <div class="mb-3">
-                        <strong>Description:</strong>
-                        <p class="mt-1">
-                            {{ complaint.description }}
-                        </p>
-                    </div>
-
+                    <!-- Complaint Photo -->
 
                     {% if complaint.image %}
 
-                        <div class="mb-4">
+                        <div class="mt-4">
 
-                            <strong>Complaint Photo:</strong>
+                            <h5>
+                                Complaint Photo
+                            </h5>
 
-                            <div class="mt-2">
+                            <div class="mt-3 text-center">
 
                                 <img
                                     src="{{ complaint.image.url }}"
                                     alt="Complaint Photo"
                                     class="img-fluid rounded shadow-sm"
-                                    style="max-height: 400px;"
+                                    style="
+                                        max-height: 450px;
+                                        width: auto;
+                                    "
                                 >
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="mt-4">
+
+                            <div class="alert alert-light border">
+
+                                No photo was uploaded for this complaint.
 
                             </div>
 
@@ -113,30 +238,48 @@ Complaint Details - Smart City
                     {% endif %}
 
 
+                    <hr class="my-4">
+
+
+                    <!-- Dates -->
+
                     <div class="row">
 
+
                         <div class="col-md-6">
 
-                            <strong>Submitted:</strong>
+                            <small class="text-muted">
+                                Submitted
+                            </small>
 
-                            <p class="text-muted">
+                            <p class="mt-1">
+
                                 {{ complaint.created_at|date:"d M Y, h:i A" }}
+
                             </p>
 
                         </div>
+
 
                         <div class="col-md-6">
 
-                            <strong>Last Updated:</strong>
+                            <small class="text-muted">
+                                Last Updated
+                            </small>
 
-                            <p class="text-muted">
+                            <p class="mt-1">
+
                                 {{ complaint.updated_at|date:"d M Y, h:i A" }}
+
                             </p>
 
                         </div>
+
 
                     </div>
 
+
+                    <!-- Buttons -->
 
                     <div class="mt-3">
 
@@ -147,7 +290,16 @@ Complaint Details - Smart City
                             ← Back to My Complaints
                         </a>
 
+
+                        <a
+                            href="{% url 'submit_complaint' %}"
+                            class="btn btn-primary ms-2"
+                        >
+                            Submit Another Complaint
+                        </a>
+
                     </div>
+
 
                 </div>
 

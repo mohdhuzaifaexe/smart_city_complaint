@@ -86,7 +86,7 @@ Citizen Tracks Updated Status
 
 ---
 
-🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 | Technology  | Purpose                   |
 | ----------- | ------------------------- |
@@ -102,7 +102,7 @@ Citizen Tracks Updated Status
 
 ---
 
-📂 Project Structure
+## 📂 Project Structure
 
 smart_city_complaint/
 │

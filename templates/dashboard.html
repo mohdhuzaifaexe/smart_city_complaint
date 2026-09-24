@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard - Smart City
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1>
+            Welcome, {{ request.user.username }}!
+        </h1>
+
+        <p class="text-muted">
+            Welcome to your Smart City dashboard.
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center h-100">
+
+                <div class="card-body p-4">
+
+                    <h4>Report a Problem</h4>
+
+                    <p>
+                        Submit a new civic complaint.
+                    </p>
+
+                    <a href="{% url 'submit_complaint' %}"
+                       class="btn btn-primary">
+                        Submit Complaint
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center h-100">
+
+                <div class="card-body p-4">
+
+                    <h4>My Complaints</h4>
+
+                    <p>
+                        View and track your complaints.
+                    </p>
+
+                    <a href="#"
+                       class="btn btn-outline-primary">
+                        View Complaints
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

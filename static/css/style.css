@@ -1,0 +1,78 @@
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd, #084298);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-section h1 {
+    max-width: 900px;
+    margin: auto;
+    color: white;
+}
+
+.hero-section p {
+    max-width: 700px;
+    margin: 20px auto;
+    color: white;
+}
+
+.hero-section .btn-light {
+    color: #212529;
+}
+
+.hero-section .btn-outline-light {
+    color: white;
+    border-color: white;
+}
+
+.hero-section .btn-outline-light:hover {
+    color: #0d6efd;
+    background-color: white;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd, #084298);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-section h1 {
+    max-width: 900px;
+    margin: auto;
+    color: white;
+}
+
+.hero-section p {
+    max-width: 700px;
+    margin: 20px auto;
+    color: white;
+}
+
+.hero-section .btn-light {
+    color: #212529;
+}
+
+.hero-section .btn-outline-light {
+    color: white;
+    border-color: white;
+}
+
+.hero-section .btn-outline-light:hover {
+    color: #0d6efd;
+    background-color: white;
+}
+
+.card {
+    border: none;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}

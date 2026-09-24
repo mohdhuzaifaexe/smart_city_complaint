@@ -1,56 +1,28 @@
 # Virtual Environment
 venv/
 .venv/
-env/
-ENV/
 
-# Python cache
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Environment variables / Secrets
-.env
-.env.*
-!.env.example
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
 # Django
-staticfiles/
+db.sqlite3
+
+# Environment variables
+.env
+
+# Media uploads
 media/
 
-# VS Code
-.vscode/
-
 # IDE
+.vscode/
 .idea/
+
+# OS
+Thumbs.db
+.DS_Store
 
 # Logs
 *.log
-
-# OS files
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Coverage / Testing
-.coverage
-htmlcov/
-.pytest_cache/
-.mypy_cache/
-
-# Build files
-build/
-dist/
-*.egg-info/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Temporary files
-*.tmp
-*.temp

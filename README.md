@@ -84,8 +84,6 @@ Resolved / Rejected
    ▼
 Citizen Tracks Updated Status
 
----
-
 🛠️ Technologies Used
 
 | Technology  | Purpose                   |
@@ -100,3 +98,4 @@ Citizen Tracks Updated Status
 | Chart.js    | Dashboard Charts          |
 | Pillow      | Image Upload Handling     |
 
+```

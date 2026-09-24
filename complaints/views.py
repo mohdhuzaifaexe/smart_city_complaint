@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Count
+
 from .models import Complaint, Category
 
 def home(request):
@@ -133,5 +136,72 @@ def my_complaints(request):
         'my_complaints.html',
         {
             'complaints': complaints
+        }
+    )
+
+def complaint_detail(request, complaint_id):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    complaint = Complaint.objects.get(
+        id=complaint_id,
+        user=request.user
+    )
+
+    return render(
+        request,
+        'complaint_detail.html',
+        {
+            'complaint': complaint
+        }
+    )
+
+@staff_member_required(login_url='/login/')
+def admin_dashboard(request):
+
+    total_complaints = Complaint.objects.count()
+
+    pending_complaints = Complaint.objects.filter(
+        status='Pending'
+    ).count()
+
+    in_progress_complaints = Complaint.objects.filter(
+        status='In Progress'
+    ).count()
+
+    resolved_complaints = Complaint.objects.filter(
+        status='Resolved'
+    ).count()
+
+    rejected_complaints = Complaint.objects.filter(
+        status='Rejected'
+    ).count()
+
+    category_data = list(
+        Complaint.objects
+        .values('category__name')
+        .annotate(total=Count('id'))
+        .order_by('-total')
+    )
+
+    status_data = {
+        'pending': pending_complaints,
+        'in_progress': in_progress_complaints,
+        'resolved': resolved_complaints,
+        'rejected': rejected_complaints,
+    }
+
+    return render(
+        request,
+        'admin_dashboard.html',
+        {
+            'total_complaints': total_complaints,
+            'pending_complaints': pending_complaints,
+            'in_progress_complaints': in_progress_complaints,
+            'resolved_complaints': resolved_complaints,
+            'rejected_complaints': rejected_complaints,
+            'category_data': category_data,
+            'status_data': status_data,
         }
     )

@@ -1,0 +1,378 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Admin Dashboard - Smart City
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+
+        <h1>Admin Dashboard</h1>
+
+        <p class="text-muted">
+            Monitor and manage city complaints.
+        </p>
+
+    </div>
+
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-5">
+
+        <!-- Total -->
+        <div class="col-md-6 col-lg">
+
+            <div class="card shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Total Complaints
+                    </h6>
+
+                    <h2>
+                        {{ total_complaints }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending -->
+        <div class="col-md-6 col-lg">
+
+            <div class="card shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Pending
+                    </h6>
+
+                    <h2 class="text-warning">
+                        {{ pending_complaints }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- In Progress -->
+        <div class="col-md-6 col-lg">
+
+            <div class="card shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        In Progress
+                    </h6>
+
+                    <h2 class="text-primary">
+                        {{ in_progress_complaints }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Resolved -->
+        <div class="col-md-6 col-lg">
+
+            <div class="card shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Resolved
+                    </h6>
+
+                    <h2 class="text-success">
+                        {{ resolved_complaints }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rejected -->
+        <div class="col-md-6 col-lg">
+
+            <div class="card shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Rejected
+                    </h6>
+
+                    <h2 class="text-danger">
+                        {{ rejected_complaints }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Charts -->
+    <div class="row g-4">
+
+
+        <!-- Status Chart -->
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h4 class="mb-4">
+                        Complaint Status
+                    </h4>
+
+                    <div style="height: 300px;">
+
+                        <canvas id="statusChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Category Chart -->
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h4 class="mb-4">
+                        Complaints by Category
+                    </h4>
+
+                    <div style="height: 300px;">
+
+                        <canvas id="categoryChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Admin Actions -->
+    <div class="text-center mt-5">
+
+        <a
+            href="/admin/complaints/complaint/"
+            class="btn btn-primary me-2"
+        >
+            Manage Complaints
+        </a>
+
+        <a
+            href="{% url 'home' %}"
+            class="btn btn-outline-secondary"
+        >
+            Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- Django JSON Data -->
+
+{{ status_data|json_script:"status-data" }}
+
+{{ category_data|json_script:"category-data" }}
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*
+     * Get data from Django
+     */
+
+    const statusElement =
+        document.getElementById("status-data");
+
+    const categoryElement =
+        document.getElementById("category-data");
+
+
+    const statusData =
+        JSON.parse(statusElement.textContent);
+
+
+    const categoryData =
+        JSON.parse(categoryElement.textContent);
+
+
+    /*
+     * Complaint Status Chart
+     */
+
+    const statusCanvas =
+        document.getElementById("statusChart");
+
+
+    if (statusCanvas) {
+
+        new Chart(statusCanvas, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+                    "Pending",
+                    "In Progress",
+                    "Resolved",
+                    "Rejected"
+                ],
+
+                datasets: [
+
+                    {
+
+                        data: [
+
+                            statusData.pending,
+
+                            statusData.in_progress,
+
+                            statusData.resolved,
+
+                            statusData.rejected
+
+                        ]
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false
+
+            }
+
+        });
+
+    }
+
+
+    /*
+     * Complaint Category Chart
+     */
+
+    const categoryCanvas =
+        document.getElementById("categoryChart");
+
+
+    if (categoryCanvas) {
+
+        new Chart(categoryCanvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels: categoryData.map(
+                    function (item) {
+                        return item.category__name;
+                    }
+                ),
+
+                datasets: [
+
+                    {
+
+                        label: "Complaints",
+
+                        data: categoryData.map(
+                            function (item) {
+                                return item.total;
+                            }
+                        )
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            precision: 0
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

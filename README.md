@@ -83,3 +83,19 @@ Resolved / Rejected
    │
    ▼
 Citizen Tracks Updated Status
+
+🛠️ Technologies Used
+
+| Technology  | Purpose                   |
+| ----------- | ------------------------- |
+| Python      | Backend Programming       |
+| Django      | Web Framework             |
+| SQLite      | Database                  |
+| HTML        | Page Structure            |
+| CSS         | Styling                   |
+| Bootstrap 5 | Responsive UI             |
+| JavaScript  | Client-side functionality |
+| Chart.js    | Dashboard Charts          |
+| Pillow      | Image Upload Handling     |
+
+
